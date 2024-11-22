@@ -1,11 +1,9 @@
-import "../styles/globals.css"; // Import global styles
-import Layout from "../components/Layout";
+import MovieList from "./components/MovieList";
 
-export default function Home({ Component, pageProps }) {
+export default function Home() {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <main className="flex-grow">
+      <MovieList />
+    </main>
   );
 }
-
