@@ -1,8 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import MovieCard from "./MovieCard";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function MovieList() {
+  const router = useRouter()
   const [movies, setMovies] = useState();
   const [getMovie, setGetMovie] = useState(true);
   useEffect(() => {
@@ -63,7 +66,7 @@ export default function MovieList() {
       year: movie.year,
     });
   };
-
+  
   const handleSaveEdit = () => {
     setMovies((prevMovies) =>
       prevMovies.map((m) =>
@@ -81,10 +84,33 @@ export default function MovieList() {
     setFormState({ title: "", actors: "", year: "" });
   };
 
-  const handleDeleteMovie = (id) => {
-    setMovies(movies.filter((m) => m.id !== id));
+  const handleDeleteMovie = async (id) => { 
+    try {
+      const response = await axios.delete(`http://localhost:3000/api/delete`, {
+        data: {id : id}
+      });
+      if (response.status === 200) {
+        setMovies(movies.filter(movie => movie.id !== id));
+      } else {
+        console.error('Failed to delete movie');
+      }
+    } catch (error) {
+      console.error('Error deleting movie:', error.message);
+    } finally {
+      router.refresh();
+    }
+    {/*axios
+    .delete(`api/delete/${id}`)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      console.log('test');
+    }) */}
   };
-
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Movies List</h1>

@@ -1,7 +1,7 @@
 export default function MovieCard({ movie, onEdit, onDelete }) {
   return (
-    <div className="border p-4 rounded shadow-sm">
-      <h2 className="text-lg font-semibold">{movie.title}</h2>
+    <div className="border p-4 rounded shadow-sm w-80">
+      <h2 className="text-lg font-semibold text-center">{movie.title}</h2>
       <p>
         <strong>Actors:</strong> {movie.actors.join(", ")}
       </p>
