@@ -85,17 +85,32 @@ export default function MovieList() {
   };
 
   const handleDeleteMovie = async (id) => { 
-    try { 
-      const response = await axios.delete(`http://localhost:3000/api/delete/${id}`); 
-        if (response.status === 200) { 
-          setMovies(movies.filter(movie => movie.id !== id)); 
-        } else { console.error('Failed to delete movie'); 
-
-        } } catch (error) { 
-          console.error('Error deleting movie:', error.message); 
-        } finally { router.refresh(); 
-      }};
-
+    try {
+      const response = await axios.delete(`http://localhost:3000/api/delete`, {
+        data: {id : id}
+      });
+      if (response.status === 200) {
+        setMovies(movies.filter(movie => movie.id !== id));
+      } else {
+        console.error('Failed to delete movie');
+      }
+    } catch (error) {
+      console.error('Error deleting movie:', error.message);
+    } finally {
+      router.refresh();
+    }
+    {/*axios
+    .delete(`api/delete/${id}`)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      console.log('test');
+    }) */}
+  };
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Movies List</h1>
