@@ -99,17 +99,6 @@ export default function MovieList() {
     } finally {
       router.refresh();
     }
-    {/*axios
-    .delete(`api/delete/${id}`)
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      console.log('test');
-    }) */}
   };
   return (
     <div className="p-6">
